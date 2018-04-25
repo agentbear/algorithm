@@ -1,0 +1,2 @@
+public class Leet2 {
+}
