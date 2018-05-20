@@ -61,7 +61,7 @@ public class MaxGap {
 
     public static void main(String[] args){
         int[] nums = {6,4,5,3,2,1,7,10,9};
-        MaxGap mg = new MaxGap();
+        MaxGap ma = new MaxGap();
         int ans = MaxGap.maxGap(nums);
         System.out.println(ans);
     }
