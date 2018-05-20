@@ -12,7 +12,6 @@ public class MaxGap {
         if(nums == null || nums.length < 2){
             return 0;
         }
-        Map<Integer, ArrayList> map = new HashMap<Integer, ArrayList>();
         int len = nums.length;
         int min = Integer.MAX_VALUE;
         int max = Integer.MIN_VALUE;
@@ -21,7 +20,6 @@ public class MaxGap {
             min = Math.min(min, nums[i]);
             max = Math.max(max, nums[i]);
         }
-
         if(min == max){
             return 0;
         }
@@ -31,7 +29,7 @@ public class MaxGap {
         int[] mins = new int[len + 1];
         int bid = 0;
         for(int i=0; i<len; i++){
-            bid = countBucket(nums[i], len, min, max);
+            bid = countBucket(nums[i], len, max, min);
             mins[bid] = bucket[bid] ? Math.min(mins[bid], nums[i]) : nums[i];
             maxs[bid] = bucket[bid] ? Math.max(maxs[bid], nums[i]) : nums[i];
             bucket[bid] = true;
@@ -41,12 +39,13 @@ public class MaxGap {
         int lastMax = 0;
         int i = 0;
         while(i <= len){
-            if(bucket[i++]){
-                lastMax = maxs[i - 1];
+            if(bucket[i]){
+                lastMax = maxs[i];
+                i++;
                 break;
             }
         }
-        for(i=0; i<= len; i++){
+        for(; i<=len; i++){
             if(bucket[i]){
                 ans = Math.max(ans, mins[i] - lastMax);
                 lastMax = maxs[i];
@@ -60,9 +59,8 @@ public class MaxGap {
     }
 
     public static void main(String[] args){
-        int[] nums = {6,4,5,3,2,1,7,10,9};
-        MaxGap ma = new MaxGap();
-        int ans = MaxGap.maxGap(nums);
+        int[] n = {9,3,1,10};
+        int ans = MaxGap.maxGap(n);
         System.out.println(ans);
     }
 }
